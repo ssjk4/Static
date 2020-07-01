@@ -73,6 +73,32 @@ public class DataSource: NSObject {
         guard let indexPath = tableView?.indexPathForRow(at: point) else { return nil }
         return row(at: indexPath)
     }
+    
+    public func rowByTag(_ tag: String) -> Row? {
+        for section in sections {
+            for row in section.rows {
+                if row.tag == tag {
+                    return row
+                } else {
+                    continue
+                }
+            }
+        }
+        return nil
+    }
+    
+    //很好，和描述的一样，满意。
+    public var valuesDic: [String : Any?] {
+        return self.sections.reduce([String : Any?]()) { (result, section) -> [String : Any?] in
+            var r = result
+            for row in section.rows {
+                if let tag = row.tag {
+                    r[tag] = row.value
+                }
+            }
+            return r
+        }
+    }
 
     // MARK: - Forwarding UITableViewDelegate messages
 
@@ -222,6 +248,9 @@ extension DataSource: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, heightForHeaderInSection sectionIndex: Int) -> CGFloat {
+        if let height = tableViewDelegate?.tableView?(tableView, heightForHeaderInSection: sectionIndex) {
+            return height
+        }
         return section(at: sectionIndex)?.header?.viewHeight ?? tableView.style.defaultSectionExtremityHeight
     }
 
@@ -234,6 +263,9 @@ extension DataSource: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, heightForFooterInSection sectionIndex: Int) -> CGFloat {
+        if let height = tableViewDelegate?.tableView?(tableView, heightForFooterInSection: sectionIndex) {
+            return height
+        }
         return section(at: sectionIndex)?.footer?.viewHeight ?? tableView.style.defaultSectionExtremityHeight
     }
 
@@ -281,9 +313,9 @@ extension DataSource: UITableViewDataSource {
 
 
 extension DataSource: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return row(at: indexPath)?.isSelectable ?? false
-    }
+//    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+//        return row(at: indexPath)?.isSelectable ?? false
+//    }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if automaticallyDeselectRows {
@@ -299,7 +331,7 @@ extension DataSource: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         if let row = row(at: indexPath) {
-            row.accessory.selection?()
+            row.accessorySelection?()
         }
 
         tableViewDelegate?.tableView?(tableView, accessoryButtonTappedForRowWith: indexPath)
@@ -311,7 +343,7 @@ extension UITableView.Style {
         switch self {
         case .plain: return 0
         case .grouped: return UITableView.automaticDimension
-        @unknown default: return UITableView.automaticDimension
+        default: return UITableView.automaticDimension
         }
     }
 }

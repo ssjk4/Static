@@ -2,6 +2,12 @@ import UIKit
 import Static
 
 final class NibTableViewCell: UITableViewCell, Cell {
+    
+    private weak var _row: Row?
+    public var row: Row? {
+        get { return _row }
+        set { _row = newValue }
+    }
 
     // MARK: - Properties
 
@@ -15,7 +21,7 @@ final class NibTableViewCell: UITableViewCell, Cell {
     }
 
     func configure(row: Row) {
-        centeredLabel.text = row.text
-        accessibilityIdentifier = row.accessibilityIdentifier
+        centeredLabel.text = row.title
+        accessibilityIdentifier = row.tag
     }
 }

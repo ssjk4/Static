@@ -26,7 +26,7 @@ class ViewController: TableViewController {
 
         title = "Static"
         
-        tableView.rowHeight = 50
+        //tableView.rowHeight = 100
 
         // Note:
         // Required to be set pre iOS11, to support autosizing
@@ -36,44 +36,44 @@ class ViewController: TableViewController {
         dataSource = DataSource(tableViewDelegate: self)
         dataSource.sections = [
             Section(header: "Styles", rows: [
-                Row(text: "Value 1", detailText: "Detail", cellClass: Value1Cell.self, accessibilityIdentifier: "Value1Row"),
-                Row(text: "Value 1", detailText: "with an image", image: UIImage(named: "Settings"), cellClass: Value1Cell.self),
-                Row(text: "Value 2", detailText: "Detail", cellClass: Value2Cell.self),
-                Row(text: "Subtitle", detailText: "Detail", cellClass: SubtitleCell.self),
-                Row(text: "Button", detailText: "Detail", selection: { [unowned self] in
+                Row(tag: "aaa", value: "sdfsdfds", cellClass: TextFieldTableViewCell.self),
+                Row(tag: "bbb", title: "Value 1", detailText: "Detail", cellClass: Value1Cell.self),
+                Row(title: "Value 1", detailText: "with an image", image: UIImage(named: "Settings"), cellClass: Value1Cell.self),
+                Row(title: "Value 2", detailText: "Detail", cellClass: Value2Cell.self),
+                Row(title: "Subtitle", detailText: "Detail", cellClass: SubtitleCell.self),
+                Row(title: "Button", detailText: "Detail", selection: { [unowned self] in
                     self.showAlert(title: "Row Selection")
                 }, cellClass: ButtonCell.self),
-                Row(text: "Custom from nib", cellClass: NibTableViewCell.self, accessibilityIdentifier: "NibTableViewCell")
+                Row(title: "Custom from nib", cellClass: NibTableViewCell.self)
             ], footer: "This is a section footer."),
             Section(header: "Accessories", rows: [
-                Row(text: "None"),
-                Row(text: "Disclosure Indicator", accessory: .disclosureIndicator),
-                Row(text: "Detail Disclosure Button", accessory: .detailDisclosureButton({ [unowned self] in
+                Row(title: "None"),
+                Row(title: "Disclosure Indicator", accessory: .disclosureIndicator),
+                Row(title: "Detail Disclosure Button", accessory: .detailDisclosureButton({ [unowned self] in
                     self.showAlert(title: "Detail Disclosure Button")
                 })),
-                Row(text: "Checkmark", accessory: .checkmark),
-                Row(text: "Detail Button", accessory: .detailButton({ [unowned self] in
+                Row(title: "Checkmark", accessory: .checkmark),
+                Row(title: "Detail Button", accessory: .detailButton({ [unowned self] in
                     self.showAlert(title: "Detail Button")
                 })),
-                Row(text: "UISwitch", accessory: .switchToggle(value: false) { [unowned self] newValue in
+                Row(tag: "ccc", title: "UISwitch", accessory: .switchToggle(value: true) { [unowned self] newValue in
                     self.showAlert(title: "Switch Toggled: \(newValue ? "On" : "Off")")
                 }),
-                Row(text: "Segmented control", accessory: .segmentedControl(items: ["Left", "Middle", "Right"], selectedIndex: 1) { [unowned self] (i, str) in
+                Row(tag: "ddd", title: "Segmented control", accessory: .segmentedControl(items: ["Left", "Middle", "Right"], selectedIndex: 1) { [unowned self] (i, str) in
                     self.showAlert(title: "Segment \"\(str!)\" at index \(i) selected")
                 }),
-                Row(text: "Custom View", accessory: .view(customAccessory), accessibilityIdentifier: "CustomView")
             ], footer: "Try tapping the ⓘ buttons."),
             Section(header: "Selection", rows: [
-                Row(text: "Tap this row", selection: { [unowned self] in
+                Row(title: "Tap this row", selection: { [unowned self] in
                     self.showAlert(title: "Row Selection")
                 }),
-                Row(text: "Tap this row", selection: { [unowned self] in
+                Row(title: "Tap this row", selection: { [unowned self] in
                     let viewController = ViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 })
             ]),
             Section(header: "Editing", rows: [
-                Row(text: "Swipe this row", editActions: [
+                Row(title: "Swipe this row", editActions: [
                     Row.EditAction(title: "Warn", backgroundColor: .orange, selection: { [unowned self] (indexPath) in
                         self.showAlert(title: "Warned at indexPath: \(indexPath).")
                     }),
@@ -99,8 +99,7 @@ class ViewController: TableViewController {
 extension TableViewController: UITableViewDelegate {
     // MARK: - UIScrollViewDelegate example functions
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        // You can get UIScrollViewDelegate functions forwarded, even though the `DataSource` instance is the true delegate
-        // ...
+        tableView.endEditing(true)
     }
     
     // MARK: - UITableViewDelegate example functions
@@ -110,8 +109,7 @@ extension TableViewController: UITableViewDelegate {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // The Row object's `selection` property will handle most of your use cases, but
-        // if you need to do something additional you can still implement this function.
+        print("fsdfdsf")
     }
 }
 

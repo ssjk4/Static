@@ -1,11 +1,16 @@
 import UIKit
 
-class SwitchAccessory : UISwitch {
+class SwitchAccessory : UISwitch, STCAccessoryViewProtocal {
+    
     typealias ValueChange = (Bool) -> ()
+    
+    weak var row: Row?
+    var initialValue: Any?
     
     init(initialValue: Bool, valueChange: (ValueChange)? = nil) {
         self.valueChange = valueChange
         super.init(frame: .zero)
+        self.initialValue = initialValue
         setOn(initialValue, animated: false)
         addTarget(self, action: #selector(valueChanged), for: .valueChanged)
     }
@@ -19,6 +24,7 @@ class SwitchAccessory : UISwitch {
     
     var valueChange : ValueChange?
     @objc func valueChanged() {
+        row?.value = self.isOn
         valueChange?(self.isOn)
     }
 }

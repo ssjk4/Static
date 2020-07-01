@@ -5,8 +5,13 @@ public typealias Selection = () -> Void
 public typealias ValueChange = (Bool) -> ()
 public typealias SegmentedControlValueChange = (Int, Any?) -> ()
 
+public protocol STCAccessoryViewProtocal {
+    var row: Row? { get set }
+    var initialValue: Any? { get set }
+}
+
 /// Representation of a table row.
-public struct Row: Hashable, Equatable {
+public class Row: Hashable, Equatable {
 
     // MARK: - Types
 
@@ -26,7 +31,7 @@ public struct Row: Hashable, Equatable {
 
         /// Checkmark Placeholder.
         /// Allows spacing to continue to work when switching back & forth between checked states.
-        case checkmarkPlaceholder
+        //case checkmarkPlaceholder
 
         /// Info button. Handles selection.
         case detailButton(Selection)
@@ -38,7 +43,7 @@ public struct Row: Hashable, Equatable {
         case segmentedControl(items: [Any], selectedIndex: Int, SegmentedControlValueChange)
 
         /// Custom view
-        case view(UIView)
+        case view((UIView & STCAccessoryViewProtocal))
 
         /// Table view cell accessory type
         public var type: UITableViewCell.AccessoryType {
@@ -52,13 +57,13 @@ public struct Row: Hashable, Equatable {
         }
 
         /// Accessory view
-        public var view: UIView? {
+        public var view: (UIView & STCAccessoryViewProtocal)? {
             switch self {
             case .view(let view): return view
             case .switchToggle(let value, let valueChange):
                 return SwitchAccessory(initialValue: value, valueChange: valueChange)
-            case .checkmarkPlaceholder:
-                return UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            //case .checkmarkPlaceholder:
+            //    return UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             case .segmentedControl(let items, let selectedIndex, let valueChange):
                 return SegmentedControlAccessory(items: items, selectedIndex: selectedIndex, valueChange: valueChange)
             default: return nil
@@ -107,19 +112,52 @@ public struct Row: Hashable, Equatable {
     // MARK: - Properties
 
     /// The row's accessibility identifier.
-    public var accessibilityIdentifier: String?
+    /// 改为tag
+    public var tag: String?
 
     /// Unique identifier for the row.
     public let uuid: String
 
     /// The row's primary text.
-    public var text: String?
+    /// 改为title
+    public var title: String?
 
     /// The row's secondary text.
     public var detailText: String?
 
     /// Accessory for the row.
-    public var accessory: Accessory
+    /// Accessory的view计算属性每次调用时都会初始化并带入初始值，无法保持cell的状态
+    /// 下文通过_accessoryType、_accessoryView存储对应的变量
+    private var accessory: Accessory
+    /// Accessory.type
+    private var _accessoryType: UITableViewCell.AccessoryType?
+    public var accessoryType: UITableViewCell.AccessoryType {
+        if _accessoryType != nil {
+            return _accessoryType!
+        }
+        _accessoryType = accessory.type
+        return _accessoryType!
+    }
+    /// Accessory.view
+    private var _accessoryView: (UIView & STCAccessoryViewProtocal)?
+    public var accessoryView: (UIView & STCAccessoryViewProtocal)? {
+        if _accessoryView != nil {
+            return _accessoryView
+        }
+        _accessoryView = accessory.view
+        self.value = _accessoryView?.initialValue
+        _accessoryView?.row = self
+        return _accessoryView
+    }
+    /// Accessory.selection
+    private var _accessorySelection: Selection?
+    public var accessorySelection: Selection? {
+        if _accessorySelection != nil {
+            return _accessorySelection
+        }
+        _accessorySelection = accessory.selection
+        return _accessorySelection
+    }
 
     /// Image for the row
     public var image: UIImage?
@@ -133,6 +171,9 @@ public struct Row: Hashable, Equatable {
     /// Additional information for the row.
     public var context: Context?
     
+    //保存row的值
+    public var value: Any?
+        
     /// Actions to show when swiping the cell, such as Delete.
     public var editActions: [EditAction]
 
@@ -155,12 +196,13 @@ public struct Row: Hashable, Equatable {
 
     // MARK: - Initializers
 
-    public init(text: String? = nil, detailText: String? = nil, selection: Selection? = nil,
-        image: UIImage? = nil, accessory: Accessory = .none, cellClass: Cell.Type? = nil, context: Context? = nil, editActions: [EditAction] = [], uuid: String = UUID().uuidString, accessibilityIdentifier: String? = nil) {
-        self.accessibilityIdentifier = accessibilityIdentifier
+    public init(tag: String? = nil, title: String? = nil, detailText: String? = nil, value: Any? = nil, selection: Selection? = nil,
+        image: UIImage? = nil, accessory: Accessory = .none, cellClass: Cell.Type? = nil, context: Context? = nil, editActions: [EditAction] = [], uuid: String = UUID().uuidString) {
+        self.tag = tag
         self.uuid = uuid
-        self.text = text
+        self.title = title
         self.detailText = detailText
+        self.value = value
         self.selection = selection
         self.image = image
         self.accessory = accessory

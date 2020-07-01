@@ -1,6 +1,9 @@
 import UIKit
 
 open class Value2Cell: UITableViewCell, Cell {
+    
+    public weak var row: Row?
+    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value2, reuseIdentifier: reuseIdentifier)
     }

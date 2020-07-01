@@ -29,6 +29,8 @@
 		36748D5C1B5034EC0046F207 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36748D5A1B5034EC0046F207 /* LaunchScreen.storyboard */; };
 		39DC804A1BD96BB0001F04CD /* NibTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DC80491BD96BB0001F04CD /* NibTableViewCell.swift */; };
 		4AEF73EB21F2B802004927DA /* SegmentedControlAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEF73EA21F2B802004927DA /* SegmentedControlAccessory.swift */; };
+		A35B4FCE24AC243B00DC85EE /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35B4FCC24AC243B00DC85EE /* TextFieldTableViewCell.swift */; };
+		A35B4FCF24AC243B00DC85EE /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A35B4FCD24AC243B00DC85EE /* TextFieldTableViewCell.xib */; };
 		A706253D1BC81C1400E471EF /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706253B1BC81C1400E471EF /* CustomTableViewCell.swift */; };
 		A706253E1BC81C1400E471EF /* NibTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A706253C1BC81C1400E471EF /* NibTableViewCell.xib */; };
 		B84E13F720555E26001D6C99 /* SwitchAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E13F620555E26001D6C99 /* SwitchAccessory.swift */; };
@@ -91,6 +93,8 @@
 		36C8FE9A1B4EECF30004DA5B /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		39DC80491BD96BB0001F04CD /* NibTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibTableViewCell.swift; sourceTree = "<group>"; };
 		4AEF73EA21F2B802004927DA /* SegmentedControlAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlAccessory.swift; sourceTree = "<group>"; };
+		A35B4FCC24AC243B00DC85EE /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		A35B4FCD24AC243B00DC85EE /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldTableViewCell.xib; sourceTree = "<group>"; };
 		A706253B1BC81C1400E471EF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		A706253C1BC81C1400E471EF /* NibTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibTableViewCell.xib; sourceTree = "<group>"; };
 		B84E13F620555E26001D6C99 /* SwitchAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAccessory.swift; sourceTree = "<group>"; };
@@ -192,8 +196,10 @@
 				36748D5A1B5034EC0046F207 /* LaunchScreen.storyboard */,
 				36748D5D1B5034EC0046F207 /* Info.plist */,
 				A706253B1BC81C1400E471EF /* CustomTableViewCell.swift */,
-				A706253C1BC81C1400E471EF /* NibTableViewCell.xib */,
 				39DC80491BD96BB0001F04CD /* NibTableViewCell.swift */,
+				A706253C1BC81C1400E471EF /* NibTableViewCell.xib */,
+				A35B4FCC24AC243B00DC85EE /* TextFieldTableViewCell.swift */,
+				A35B4FCD24AC243B00DC85EE /* TextFieldTableViewCell.xib */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -333,6 +339,7 @@
 				36748D5C1B5034EC0046F207 /* LaunchScreen.storyboard in Resources */,
 				36748D591B5034EC0046F207 /* Assets.xcassets in Resources */,
 				A706253E1BC81C1400E471EF /* NibTableViewCell.xib in Resources */,
+				A35B4FCF24AC243B00DC85EE /* TextFieldTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +382,7 @@
 				39DC804A1BD96BB0001F04CD /* NibTableViewCell.swift in Sources */,
 				36748D541B5034EC0046F207 /* ViewController.swift in Sources */,
 				36748D521B5034EC0046F207 /* WindowController.swift in Sources */,
+				A35B4FCE24AC243B00DC85EE /* TextFieldTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

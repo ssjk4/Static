@@ -1,6 +1,8 @@
 import UIKit
 
 open class ButtonCell: UITableViewCell, Cell {
+    
+    public weak var row: Row?
 
     // MARK: - Initializers
 

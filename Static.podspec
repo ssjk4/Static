@@ -3,9 +3,9 @@ Pod::Spec.new do |spec|
   spec.version = '4.0.0'
   spec.summary = 'Simple static table views for iOS in Swift.'
   spec.description = 'Static provides simple static table views for iOS in Swift.'
-  spec.homepage = 'https://github.com/venmo/static'
+  spec.homepage = 'https://github.com/ssjk4/Static'
   spec.license = { type: 'MIT', file: 'LICENSE' }
-  spec.source = { git: 'https://github.com/venmo/Static.git', tag: "v#{spec.version}" }
+  spec.source = { git: 'https://github.com/ssjk4/Static.git', tag: "v#{spec.version}" }
   spec.author = { 'Venmo' => 'ios@venmo.com', 'Sam Soffes' => 'sam@soff.es' }
 
   spec.platform = :ios, '8.0'

@@ -1,7 +1,7 @@
 import UIKit
 
 /// Representation of a table section.
-public struct Section: Hashable, Equatable {
+public class Section: Hashable, Equatable {
 
     // MARK: - Types
 
