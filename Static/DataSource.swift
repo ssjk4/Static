@@ -244,6 +244,9 @@ extension DataSource: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection sectionIndex: Int) -> UIView? {
+        if tableViewDelegate?.responds(to: #selector(tableView(_:viewForHeaderInSection:))) ?? false {
+            return tableViewDelegate?.tableView?(tableView, viewForHeaderInSection: sectionIndex)
+        }
         return section(at: sectionIndex)?.header?._view
     }
 
@@ -259,6 +262,9 @@ extension DataSource: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, viewForFooterInSection sectionIndex: Int) -> UIView? {
+        if tableViewDelegate?.responds(to: #selector(tableView(_:viewForFooterInSection:))) ?? false {
+            return tableViewDelegate?.tableView?(tableView, viewForFooterInSection: sectionIndex)
+        }
         return section(at: sectionIndex)?.footer?._view
     }
 
