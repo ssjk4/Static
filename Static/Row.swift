@@ -12,6 +12,17 @@ public protocol STCAccessoryViewProtocal {
 
 /// Representation of a table row.
 public class Row: Hashable, Equatable {
+    
+    public struct ContextKey: Hashable, Equatable, RawRepresentable {
+        public typealias RawValue = String
+        public init(rawValue: RawValue) {
+            self.rawValue = rawValue
+        }
+        public private(set) var rawValue: RawValue
+        
+        public static let displayValue = ContextKey(rawValue: "displayValue")
+        public static let delegate = ContextKey(rawValue: "delegate")
+    }
 
     // MARK: - Types
 
@@ -80,7 +91,7 @@ public class Row: Hashable, Equatable {
         }
     }
 
-    public typealias Context = [String: Any]
+    public typealias Context = [ContextKey: Any]
     public typealias EditActionSelection = (IndexPath) -> ()
 
     /// Representation of an editing action, when swiping to edit a cell.
